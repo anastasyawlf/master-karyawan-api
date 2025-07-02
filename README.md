@@ -1,29 +1,85 @@
-# Getting Started
+# Aplikasi Master Karyawan (Employee Master Full-Stack)
 
-### Reference Documentation
-For further reference, please consider the following sections:
+Ini adalah proyek aplikasi web full-stack yang dirancang untuk mengelola data master karyawan. Aplikasi ini dibangun dengan arsitektur berlapis yang modern, memisahkan antara logika backend dan frontend secara jelas.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/3.3.13/maven-plugin)
-* [Create an OCI image](https://docs.spring.io/spring-boot/3.3.13/maven-plugin/build-image.html)
-* [Spring Web](https://docs.spring.io/spring-boot/3.3.13/reference/web/servlet.html)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/3.3.13/reference/data/sql.html#data.sql.jpa-and-spring-data)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/3.3.13/reference/using/devtools.html)
-* [Validation](https://docs.spring.io/spring-boot/3.3.13/reference/io/validation.html)
 
-### Guides
-The following guides illustrate how to use some features concretely:
+---
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Validation](https://spring.io/guides/gs/validating-form-input/)
+## ✨ Fitur Utama
 
-### Maven Parent overrides
+* **CRUD Penuh:** Membuat, Membaca, Memperbarui, dan Menghapus data karyawan.
+* **Soft Delete:** Data tidak dihapus secara fisik dari database, melainkan ditandai sebagai tidak aktif (`is_delete = 1`), menjaga integritas data historis.
+* **Arsitektur Berlapis:** Implementasi yang bersih dengan pemisahan antara Controller, Service, Repository, dan Model (Entity).
+* **Validasi Sisi Server:** Pengecekan NIP (Nomor Induk Pegawai) yang unik dan validasi lainnya sebelum menyimpan data.
+* **Pagination & Sorting:** Menampilkan daftar karyawan dalam bentuk halaman untuk performa yang efisien.
+* **API Dokumentasi:** Rangkuman endpoint REST API yang jelas dan siap digunakan.
 
-Due to Maven's design, elements are inherited from the parent POM to the project POM.
-While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
-To prevent this, the project POM contains empty overrides for these elements.
-If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
+---
 
+## 🛠️ Tech Stack
+
+### Backend
+* **Framework:** Spring Boot 3.x
+* **Bahasa:** Java 21
+* **Akses Data:** Spring Data JPA
+* **Provider JPA:** Hibernate
+* **Database (Development):** H2 In-Memory Database
+* **Database (Production):** PostgreSQL
+* **Build Tool:** Maven
+* **Query Language:** HQL (Hibernate Query Language)
+
+### Frontend 
+* **Framework:** React / Vue / Svelte / Angular
+* **Komunikasi:** REST API (JSON)
+
+---
+
+## 📖 Dokumentasi API Endpoint
+
+Berikut adalah daftar endpoint REST API yang tersedia.
+
+| Metode HTTP | Endpoint                  | Deskripsi                                        |
+| :----------- | :------------------------ | :----------------------------------------------- |
+| `GET`        | `/api/employees`          | Mengambil semua data karyawan (dengan pagination). Contoh: `/api/employees?page=0&size=10&sort=name,asc` |
+| `GET`        | `/api/employees/{id}`     | Mengambil detail satu karyawan berdasarkan ID.     |
+| `POST`       | `/api/employees`          | Membuat data karyawan baru.                      |
+| `PUT`        | `/api/employees/{id}`     | Memperbarui data karyawan berdasarkan ID.          |
+| `DELETE`     | `/api/employees/{id}`     | Menghapus (soft delete) data karyawan berdasarkan ID. |
+| `GET`        | `/api/positions`          | Mengambil semua data jabatan (untuk dropdown form).|
+
+---
+
+## 🚀 Cara Menjalankan Proyek (Backend)
+
+### Prasyarat
+* Java Development Kit (JDK) 21 atau lebih baru.
+* Apache Maven.
+* Git.
+
+### Langkah-langkah Instalasi
+1.  **Clone repositori ini:**
+    ```bash
+    git clone https://github.com/anastasyawlf/master-karyawan-api
+    ```
+2.  **Masuk ke direktori proyek:**
+    ```bash
+    cd masterkaryawan
+    ```
+3.  **Jalankan aplikasi menggunakan Maven Wrapper:**
+    * Untuk Windows (Command Prompt / PowerShell):
+        ```bash
+        ./mvnw.cmd spring-boot:run
+        ```
+    * Untuk Linux / macOS:
+        ```bash
+        ./mvnw spring-boot:run
+        ```
+4.  Aplikasi akan berjalan di `http://localhost:8080`.
+
+### Database Development
+* Aplikasi menggunakan database **H2 In-Memory** secara default saat development.
+* Anda dapat mengakses **H2 Console** untuk melihat tabel dan data melalui browser di: `http://localhost:8080/h2-console`
+* Gunakan JDBC URL: `jdbc:h2:mem:masterkaryawan` untuk login.
+
+---
+*Dibuat dengan ❤️ oleh anastasyawlf.*
